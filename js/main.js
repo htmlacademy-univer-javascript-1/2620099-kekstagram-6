@@ -89,8 +89,9 @@ const createUserPosts = (postId) =>{
 
 };
 
-const postIdGenerator = createRandomIdFromRangeGenerator(1,25);
 const postsArray = [];
+const postIdGenerator = createRandomIdFromRangeGenerator(1,25);
+
 
 for (let postIndex = 0; postIndex < postsCount; postIndex++){
   const postId = postIdGenerator();
