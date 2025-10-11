@@ -1,11 +1,11 @@
-export function getRandomInteger(min, max) {
+function getRandomInteger(min, max) {
   const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
   const upper = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
   const result = Math.random() * (upper - lower + 1) + lower;
   return Math.floor(result);
 }
 
-export function createRandomIdFromRangeGenerator(min, max) {
+function createRandomIdFromRangeGenerator(min, max) {
   const previousValues = [];
 
   return function () {
@@ -22,3 +22,5 @@ export function createRandomIdFromRangeGenerator(min, max) {
     return currentValue;
   };
 }
+
+export{getRandomInteger, createRandomIdFromRangeGenerator};
