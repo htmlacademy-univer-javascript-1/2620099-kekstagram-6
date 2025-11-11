@@ -1,20 +1,9 @@
-/* eslint-disable no-console */
-
-const checkLength = (str, len) => str.length<=len;
-
-checkLength('проверяемая строка', 20);
-checkLength('проверяемая строка', 18);
-checkLength('проверяемая строка', 10);
-
-const isPalindrom = (str) => {
-  const cleanedStr = str.toLowerCase().replace(/\s/g, '');
-  const reversedStr = cleanedStr.split('').reverse().join('');
-  return cleanedStr === reversedStr;
+const time = (start, end, meetingStart, meetingTime) => {
+  const [endH, endM] = end.split(':');
+  const [meetingStartH, meetingStartM] = meetingStart.split(':');
+  const meetingEnd = meetingStartH*60+meetingStartM + meetingTime;
+  end = endH*60+ endM;
+  return meetingEnd < end;
 };
 
-isPalindrom('топот');
-isPalindrom('ДовОд');
-isPalindrom('Кекс');
-isPalindrom('Лёша на полке клопа нашёл ');
-
-
+time('08:00', '17:30', '14:00', 90);
