@@ -7,11 +7,8 @@ const commentCountElement = bigPicture.querySelector('.social__comment-count');
 
 const commentsLoader = bigPicture.querySelector('.comments-loader');
 
-
 const cancelButton = bigPicture.querySelector('.big-picture__cancel');
 
-
-let commentsList = [];
 
 const createComment = (comment) => {
   const commentElement = document.createElement('li');
@@ -55,8 +52,6 @@ const openBigPicture = (pictureData) => {
   bigPictureImg.alt = description;
   likesCount.textContent = likes;
   commentsCount.textContent = comments.length;
-
-  commentsList = comments;
 
   commentCountElement.classList.add('hidden');
   commentsLoader.classList.add('hidden');
