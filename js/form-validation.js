@@ -125,10 +125,6 @@ function onEscape(evt) {
   }
 }
 
-const onFilterChange = () => {
-  resetEffects();
-};
-
 
 cancelButton.addEventListener('click', closeForm);
 

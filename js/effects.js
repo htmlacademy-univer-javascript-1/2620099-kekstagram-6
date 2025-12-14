@@ -38,8 +38,6 @@ const hideSlider = () => {
 };
 
 
-
-// Сброс эффекта к значениям по умолчанию
 const resetEffects = () => {
   currentEffect = DEFAULT_EFFECT;
   effectLevelValue.value = '100';
@@ -96,7 +94,6 @@ const updateSlider = (effect) => {
   applyEffect(max);
   effectLevelValue.value = max;
 };
-
 
 
 const onEffectChange = (evt) => {
