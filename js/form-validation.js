@@ -1,4 +1,4 @@
-import { initEffects, destroyEffects, resetEffects } from './effects.js';
+import { initEffects, destroyEffects} from './effects.js';
 import { initScale, destroyScale } from './scale.js';
 
 const fileInput = document.querySelector('#upload-file');
@@ -124,10 +124,6 @@ function onEscape(evt) {
     closeForm();
   }
 }
-
-const onFilterChange = () => {
-  resetEffects();
-};
 
 
 cancelButton.addEventListener('click', closeForm);
