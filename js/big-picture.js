@@ -13,7 +13,6 @@ let commentsShown = 0;
 
 const cancelButton = bigPicture.querySelector('.big-picture__cancel');
 
-
 const createComment = (comment) => {
   const commentElement = document.createElement('li');
   commentElement.classList.add('social__comment');
@@ -37,9 +36,7 @@ const createComment = (comment) => {
 
 const renderComments = () => {
   const fragment = document.createDocumentFragment();
-
   const commentsToShow = currentComments.slice(commentsShown, commentsShown + COMMENTS_PER_STEP);
-
 
   if (commentsShown === 0) {
     socialComments.innerHTML = '';
@@ -53,7 +50,18 @@ const renderComments = () => {
 
   commentsShown += commentsToShow.length;
 
-  commentCountElement.innerHTML = `${commentsShown} из <span class="comments-count">${currentComments.length}</span> комментариев`;
+  const shownCountSpan = commentCountElement.querySelector('.social__comment-shown-count');
+  const totalCountSpan = commentCountElement.querySelector('.social__comment-total-count');
+
+  if (shownCountSpan) {
+    shownCountSpan.textContent = commentsShown;
+  } else {
+    commentCountElement.innerHTML = `<span class="social__comment-shown-count">${commentsShown}</span> из <span class="social__comment-total-count">${currentComments.length}</span> комментариев`;
+  }
+
+  if (totalCountSpan) {
+    totalCountSpan.textContent = currentComments.length;
+  }
 
   if (commentsShown >= currentComments.length) {
     commentsLoader.classList.add('hidden');
@@ -94,6 +102,14 @@ const openBigPicture = (pictureData) => {
   likesCount.textContent = likes;
   commentsCount.textContent = comments.length;
 
+  const socialCaption = bigPicture.querySelector('.social__caption');
+  socialCaption.textContent = description;
+
+  const totalCommentsElement = bigPicture.querySelector('.social__comment-total-count');
+  if (totalCommentsElement) {
+    totalCommentsElement.textContent = comments.length;
+  }
+
   currentComments = comments;
 
   renderComments();
@@ -106,7 +122,6 @@ const closeBigPicture = () => {
   bigPicture.classList.add('hidden');
   document.body.classList.remove('modal-open');
 };
-
 
 cancelButton.addEventListener('click', () => {
   closeBigPicture();
