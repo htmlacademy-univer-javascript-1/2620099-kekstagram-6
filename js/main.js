@@ -1,5 +1,6 @@
 import { renderPictures } from './pictures.js';
 import { initForm } from './form-validation.js';
+import { initImageUpload } from './image-upload.js';
 import { initEffects } from './effects.js';
 import { getData } from './api.js';
 import { initFilters } from './filters.js';
@@ -7,8 +8,9 @@ import { initFilters } from './filters.js';
 let photos = [];
 
 const RERENDER_DELAY = 500;
+const DEBOUNCE_DELAY = 500;
 
-const debounce = (callback, timeoutDelay = 500) => {
+const debounce = (callback, timeoutDelay = DEBOUNCE_DELAY) => {
   let timeoutId;
   return (...args) => {
     clearTimeout(timeoutId);
@@ -50,7 +52,11 @@ getData()
     );
 
     initEffects();
+    // Инициализация формы
     initForm();
+
+    // Инициализация загрузки изображения
+    initImageUpload ();
   })
   .catch(() => {
     showErrorMessage();

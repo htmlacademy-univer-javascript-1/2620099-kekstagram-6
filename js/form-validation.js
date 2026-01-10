@@ -3,12 +3,8 @@ import { initScale, destroyScale, resetScale } from './scale.js';
 import { postData } from './api.js';
 
 
-const fileInput = document.querySelector('#upload-file');
 const uploadOverlay = document.querySelector('.img-upload__overlay');
 const form = document.querySelector('.img-upload__form');
-
-const previewImage = document.querySelector('.img-upload__preview img');
-const effectsPreviews = document.querySelectorAll('.effects__preview');
 
 
 let pristine = null;
@@ -23,9 +19,6 @@ const submitButton = document.querySelector('.img-upload__submit');
 const MAX_HASHTAGS = 5;
 const MAX_HASHTAG_LENGTH = 20;
 const MAX_COMMENT_LENGTH = 140;
-
-const FILE_TYPES = ['jpg', 'jpeg', 'png'];
-
 
 const validateComment = (value) => value.length <= MAX_COMMENT_LENGTH;
 
@@ -100,11 +93,6 @@ const openForm = () => {
   const effectLevel = document.querySelector('.img-upload__effect-level');
   effectLevel.classList.add('hidden');
 
-  // previewImage.src = '';
-  // effectsPreviews.forEach((preview) => {
-  //   preview.style.backgroundImage = '';
-  // });
-
   initScale();
   initEffects();
 
@@ -133,7 +121,7 @@ function closeForm() {
   destroyEffects();
   resetScale();
   destroyScale();
-  fileInput.value = '';
+  // fileInput.value = '';
   uploadOverlay.classList.add('hidden');
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onEscape);
@@ -164,7 +152,7 @@ function onEscape(evt) {
 cancelButton.addEventListener('click', closeForm);
 
 
-const showMessage = (templateId) => {
+const showMessage = (templateId, onClose) => {
   const template = document.querySelector(`#${templateId}`);
   if (!template) {
     return;
@@ -196,6 +184,10 @@ const showMessage = (templateId) => {
     if (button) {
       button.removeEventListener('click', closeMessage);
     }
+
+    if (onClose) {
+      onClose();
+    }
   }
 
   if (button) {
@@ -207,7 +199,7 @@ const showMessage = (templateId) => {
 };
 
 
-export function initForm() {
+function initForm() {
   cancelButton.addEventListener('click', closeForm);
 
   form.addEventListener('submit', (evt) => {
@@ -228,7 +220,9 @@ export function initForm() {
         showMessage('success');
       })
       .catch(() => {
-        showMessage('error');
+        showMessage('error', () => {
+          document.body.classList.add('modal-open');
+        });
       })
       .finally(() => {
         submitButton.disabled = false;
@@ -237,27 +231,5 @@ export function initForm() {
   });
 }
 
-const onFileChange = () => {
-  const file = fileInput.files[0];
-  if (!file) {
-    return;
-  }
 
-  const fileName = file.name.toLowerCase();
-  const matches = FILE_TYPES.some((type) => fileName.endsWith(type));
-  if (!matches) {
-    return;
-  }
-
-  const imageUrl = URL.createObjectURL(file);
-
-  previewImage.src = imageUrl;
-  effectsPreviews.forEach((preview) => {
-    preview.style.backgroundImage = `url('${imageUrl}')`;
-  });
-
-  openForm();
-};
-
-
-fileInput.addEventListener('change', onFileChange);
+export {initForm, openForm};
