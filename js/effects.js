@@ -98,7 +98,6 @@ const updateSlider = (effect) => {
     slider = null;
   }
 
-
   noUiSlider.create(effectLevelSlider, {
     range: { min, max },
     start: max,
